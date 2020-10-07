@@ -51,7 +51,7 @@ export default {
 components: {},
 data() {
 return {
-
+  value:"",
 }
 },
 computed: {},

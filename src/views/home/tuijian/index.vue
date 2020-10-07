@@ -65,6 +65,7 @@
       </div>
     </div>
     <!-- 图片 -->
+    <div>
     <img
       class="img1"
       alt=""
@@ -78,6 +79,7 @@
       src="http://qiniu.verydog.cn//show.liluo.cc/a589d24e74c4d96191dd46635054e804.jpg"
       lazy="loaded"
     />
+    </div>
     <!-- 标题 -->
     <div class="hh">
       <h3>明星单品</h3>
@@ -85,25 +87,39 @@
     <!-- 商品列表 -->
     <div class="prolist">
       <ul>
+        <li>
+          <img src="" alt="">
+        </li>
+        <!-- <li></li>
         <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li></li> -->
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   components: {},
   data() {
-    return {};
+    return {
+      image:[]
+    };
   },
   computed: {},
   watch: {},
-  methods: {},
-  created() {},
+  methods: {
+    getImage(){
+    
+    axios.get('/phone').then(res=>{
+     console.log(res)
+      })
+    }
+  },
+  created() {
+    this.getImage()
+  },
   mounted() {},
 };
 </script>
