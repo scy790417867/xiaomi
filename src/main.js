@@ -3,9 +3,11 @@ import App from './App.vue'
 import router from './router'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
+import request from './utils/request'
 // import { Image as VanImage } from 'vant';
 import Vant from 'vant';
 import 'vant/lib/index.css';
+
 
 
   
@@ -19,6 +21,7 @@ Vue.use(Vant);
 // Vue.use(TreeSelect);
 Vue.use(MintUI)
 Vue.config.productionTip = false
+Vue.prototype.$http = request
 
 new Vue({
   router,

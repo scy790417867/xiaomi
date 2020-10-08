@@ -6,7 +6,8 @@
     <div class="bod">
       <span class="iconfont icon-wode"></span>
     </div>
-    <button @click="gologin">登录</button>
+    <button v-if="showList" @click="gologin">未登录</button>
+    <button v-else @click="gologin">已登录</button>
      <span>/</span>
     <button>注册</button>
  </div>
@@ -50,6 +51,7 @@
 
 <script>
 import Footer from '../../components/Footer'
+import { getToken } from '../../utils/auth'
 
 export default {
 components: {
@@ -57,7 +59,7 @@ components: {
 },
 data() {
 return {
-
+ showList:true,
 }
 },
 computed: {},
@@ -71,7 +73,9 @@ gologin(){
 },
 
 created() {
-
+   if(getToken()){
+       this.showList = false
+   }
 },
 mounted() {
 

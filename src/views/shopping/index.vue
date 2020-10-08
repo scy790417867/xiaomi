@@ -7,19 +7,19 @@
   
     <!-- 购物车 -->
     <div id="prolist">
-      <div class="box1">
+      <div class="box1" v-for="item in shop" :key="item._id">
        <div class="box1_1">
-         <img src="" alt="">
-       </div>
+         <img :src="item.imageUrl" alt="">
+       </div> 
        <div class="box1_2">
-      <p>米家感应灯</p>
-      <p>售价：49元</p>
+      <p>{{item.title}}</p>
+      <p>售价：{{item.price}}元</p>
 
       <div class="box1_3">
         <span>+</span>
-        <input type="text" name="" id="">
+        <input type="text" name="" id="" value="1">
         <span>-</span>
-        <input type="button" value="删除" class="ben">
+        <input type="button" value="删除" class="ben" @click="delshop(item._id)">
       </div>
        </div>
 
@@ -30,42 +30,14 @@
       </div>
       <div class="box3">
         <ul>
-          <li>
-            <img src="" alt="" />
-            <h4>13.3笔记本i5 独显</h4>
-            <h5>指纹解锁，全金属机身</h5>
-            <p>￥ 5199</p>
-          </li>
-            <li>
-            <img src="" alt="" />
-            <h4>13.3笔记本i5 独显</h4>
-            <h5>指纹解锁，全金属机身</h5>
-            <p>￥ 5199</p>
-          </li>
-            <li>
-            <img src="" alt="" />
-            <h4>13.3笔记本i5 独显</h4>
-            <h5>指纹解锁，全金属机身</h5>
-            <p>￥ 5199</p>
-          </li>
-            <li>
-            <img src="" alt="" />
-            <h4>13.3笔记本i5 独显</h4>
-            <h5>指纹解锁，全金属机身</h5>
-            <p>￥ 5199</p>
-          </li>
-  <li>
-            <img src="" alt="" />
-            <h4>13.3笔记本i5 独显</h4>
-            <h5>指纹解锁，全金属机身</h5>
-            <p>￥ 5199</p>
-          </li>
-            <li>
-            <img src="" alt="" />
-            <h4>13.3笔记本i5 独显</h4>
-            <h5>指纹解锁，全金属机身</h5>
-            <p>￥ 5199</p>
-          </li>         
+     
+           <li v-for="item in list" :key="item._id" @click="goto(item._id)">
+           <img :src="item.imageUrl">
+           <h4>{{item.title}}</h4>
+           <h5>{{item.desc}}</h5>
+           <p>{{item.price}}</p>
+          </li>   
+              
         </ul>
       </div>
     </div>
@@ -85,12 +57,41 @@ export default {
     Header2
   },
   data() {
-    return {};
+    return {
+      shop:[],
+      list:[]
+    };
   },
   computed: {},
   watch: {},
-  methods: {},
-  created() {},
+  methods: {
+  getImage(){
+   this.$http.get('/phones').then(res=>{
+      // console.log(res.list)
+      this.list = res.list
+     })
+    },
+      goto(id){
+      this.$router.push({
+        path:'/xiangqing/'+id
+      })
+    },
+  getData(){
+  this.$http.get('/shops').then(res=>{
+    this.shop = res.list
+  })
+  },
+  delshop(id){
+  this.$http.delete('/delshop/'+id).then(res=>{
+    console.log(res)
+      this.getData()
+  })
+  }
+  },
+  created() {
+    this.getImage()
+    this.getData()
+  },
   mounted() {},
 };
 </script>
@@ -99,36 +100,36 @@ export default {
 #prolist {
   overflow-y: auto;
   background: #f3f3f3;
-    margin-top: 50px;
+  margin-top: 50px;
 }
 .box1 {
   width: 750px;
-  height: 180px;
+  height: 100px;
   background: #ffff;  
   display: flex;
 
 }
 .box1_1{ 
    width: 150px;
-   height: 180px;
+   height: 80px;
   
 }
 .box1_1 img{
-  width: 120px;
-  height: 150px;
+  width: 50px;
+  height: 80px;
 
-   margin-left: 10px;
+   margin-left: 50px;
    margin-top: 10px;
  
   
 }
 .box1_2{
   width: 450px;
-  height: 180px;
+  height: 80px;
  
 }
 .box1_2 p {
-  margin-top: 15px;
+ 
   font-size: 15px;
   color: #000;
   margin-left: 20px;
@@ -143,6 +144,8 @@ export default {
   width: 50px;
   border: 1px solid #000;
   height: 20px;
+  text-align: center;
+  font-size: 15px;
 
 }
 .box1_3 span{
@@ -151,14 +154,19 @@ export default {
   border: 1px solid #000;
   font-size:20px;
   text-align: center;
+  line-height: 1;
 }
 .ben{
   width: 100px;
   height: 30px;
   font-size: 15px;
+  color: #fff;
   text-align: center;
   background: red;
   margin-left: 30px;
+  line-height: 1;
+  border: none;
+  font-weight: 400;
 }
 .box2 {
   height: 30px;
@@ -179,6 +187,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin-bottom: 70px;
 }
 .box3 ul li {
   width: 45%;

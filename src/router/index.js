@@ -66,7 +66,7 @@ const router = new VueRouter({
             component:() => import('../views/mine/index.vue')
            },
            {//详情
-            path:'/xiangqing',
+            path:'/xiangqing/:id',
             component:()=>import('../views/xiangqiang/index.vue')
            },
            {//登录

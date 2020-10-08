@@ -87,33 +87,38 @@
     <!-- 商品列表 -->
     <div class="prolist">
       <ul>
-        <li>
-          <img src="" alt="">
-        </li>
-        <!-- <li></li>
-        <li></li>
-        <li></li> -->
+      <li v-for="item in list" :key="item._id" @click="goto(item._id)">
+        <img :src="item.imageUrl">
+      </li>   
+   
+     
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+
 export default {
   components: {},
   data() {
     return {
-      image:[]
+      list:[]
     };
   },
   computed: {},
   watch: {},
   methods: {
     getImage(){
-    
-    axios.get('/phone').then(res=>{
-     console.log(res)
+   this.$http.get('/phones').then(res=>{
+      // console.log(res.list)
+      this.list = res.list
+   })
+
+    },
+    goto(id){
+      this.$router.push({
+        path:'/xiangqing/'+id
       })
     }
   },
@@ -198,6 +203,10 @@ export default {
   margin-top: 10px;
 }
 .prolist ul li img {
+  width: 100%;
+  height: 100%;
+}
+.img{
   width: 100%;
   height: 100%;
 }

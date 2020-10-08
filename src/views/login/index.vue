@@ -3,6 +3,7 @@
 <div id='login'>
 <van-nav-bar title="登录" left-text="返回" left-arrow @click.native="goback">
  </van-nav-bar>
+ <div v-if="showFlag">
  <div class="date">
  <span>用户名:</span>
  <input type="text">
@@ -11,21 +12,34 @@
  <span>密   码:</span>
  <input type="text">
  </div>
- <button class="log">登录</button>
+ <button class="log" @click="login">登录</button>
 </div>
+ <div v-else>
+        <mt-cell title="修改资料" is-link>
+          <span style="color: green"></span>
+        </mt-cell>
+        <mt-cell title="退出登录" is-link @click.native="loginout">
+          <span style="color: green"></span>
+        </mt-cell>
+
+</div>
+
+</div>
+
 </template>
+
 
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import { setToken, getToken, removeToken } from "../../utils/auth";
 export default {
 //import引入的组件需要注入到对象中才能使用
 components: {},
 data() {
 //这里存放数据
 return {
- 
+  showFlag: true,
 };
 },
 //监听属性 类似于data概念
@@ -36,11 +50,21 @@ watch: {},
 methods: {
 goback(){
    this.$router.go(-1)
-}
+},
+login() {
+      setToken("kebi");
+      this.showFlag = false;
+    },
+      loginout(){
+      removeToken()
+      this.showFlag = true
+    }
 },
 //生命周期 - 创建完成（可以访问当前this实例）
 created() {
-
+if(getToken()){
+      this.showFlag=false
+    }
 },
 //生命周期 - 挂载完成（可以访问DOM元素）
 mounted() {

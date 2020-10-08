@@ -33,12 +33,7 @@
             <router-link tag="div" to="/home/hezi" class="hot_item"
               >盒子</router-link
             >
-             <router-link tag="div" to="/home/hezi" class="hot_item"
-              >盒子</router-link
-            >
-             <router-link tag="div" to="/home/hezi" class="hot_item"
-              >盒子</router-link
-            >
+      
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 <!--  -->
 <template>
 <div id="header2">
- <van-nav-bar title="购物车"  left-arrow @click-left="goback"  fixed >
+ <van-nav-bar title="商品详情"  left-arrow @click-left="goback"  fixed >
   <template #right >
     <van-icon  name="search" size="18"  />
   </template>

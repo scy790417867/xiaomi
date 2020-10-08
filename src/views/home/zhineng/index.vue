@@ -17,9 +17,9 @@
  </div>
  <div class="prolist">
      <ul>
-         <li></li>
-          <li></li>
-           <li></li>
+        <li v-for="item in list" :key="item._id">
+        <img :src="item.imageUrl">
+      </li>   
             <li></li>
      </ul>
  </div>
@@ -32,16 +32,22 @@ export default {
 components: {},
 data() {
 return {
-
+   list:[]
 }
 },
 computed: {},
 watch: {},
 methods: {
+    getImage(){
+   this.$http.get('/phone').then(res=>{
+      console.log(res.list)
+      this.list = res.list
+   })
 
+    }
 },
 created() {
-
+ this.getImage()
 },
 mounted() {
 
